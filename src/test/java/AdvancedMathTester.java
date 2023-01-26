@@ -36,9 +36,9 @@ public class AdvancedMathTester {
     public void testMultiplySumBy5() {
         // Given
 //        when(basicMath.add(75.0,25.0)).thenReturn(100.0);
-//        when(basicMath.multiply(100.0, 5.0)).thenReturn(500.0);
+//        when(basicMath.multiply(100.0, 5)).thenReturn(500.0);
         given(basicMath.add(75.0, 25.0)).willReturn(100.0);
-        given(basicMath.multiply(100.0, 5.0)).willReturn(500.0);
+        given(basicMath.multiply(100.0, 5)).willReturn(500.0);
 
         // When
         Assert.assertEquals(advancedMath.multiplySumBy5(75.0, 25.0),500.0, 0);
