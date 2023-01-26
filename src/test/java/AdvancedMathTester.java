@@ -22,8 +22,7 @@ public class AdvancedMathTester {
     @Test
     public void testMultiplyDifferenceBy5() {
         // Given
-//        when(basicMath.subtract(80.0,20.0)).thenReturn(60.0);
-        given(basicMath.subtract(80.0, 20.0)).willReturn(60.0);
+        when(basicMath.subtract(80.0,20.0)).thenReturn(60.0);
 
         // When
         Assert.assertEquals(advancedMath.multiplyDifferenceBy5(80.0, 20.0),300.0, 0);
@@ -35,10 +34,8 @@ public class AdvancedMathTester {
     @Test
     public void testMultiplySumBy5() {
         // Given
-//        when(basicMath.add(75.0,25.0)).thenReturn(100.0);
-//        when(basicMath.multiply(100.0, 5)).thenReturn(500.0);
-        given(basicMath.add(75.0, 25.0)).willReturn(100.0);
-        given(basicMath.multiply(100.0, 5)).willReturn(500.0);
+        when(basicMath.add(75.0,25.0)).thenReturn(100.0);
+        when(basicMath.multiply(100.0, 5)).thenReturn(500.0);
 
         // When
         Assert.assertEquals(advancedMath.multiplySumBy5(75.0, 25.0),500.0, 0);
@@ -50,8 +47,7 @@ public class AdvancedMathTester {
     @Test
     public void testSquareOfSum() {
         // Given
-//        when(basicMath.add(20.0,20.0)).thenReturn(40.0);
-        given(basicMath.add(20.0, 20.0)).willReturn(40.0);
+        when(basicMath.add(20.0,20.0)).thenReturn(40.0);
 
         // When
 //        advancedMath.squareOfSum(20.0, 20.0);
@@ -66,8 +62,7 @@ public class AdvancedMathTester {
     @Test
     public void testGetPercentage() {
         // Given
-//        when(basicMath.divide(50.0, 100.0)).thenReturn(.5);
-        given(basicMath.divide(50.0, 100.0)).willReturn(.5);
+        when(basicMath.divide(50.0, 100.0)).thenReturn(.5);
         doThrow(new ArithmeticException("Division by zero")).when(basicMath).divide(50.0, 0.0);
 
         // When
@@ -80,4 +75,63 @@ public class AdvancedMathTester {
 
     }
 
+    // Test 1 BDD
+    @Test
+    public void testMultiplyDifferenceBy5BDD() {
+        // Given
+        given(basicMath.subtract(80.0, 20.0)).willReturn(60.0);
+
+        // When
+        Assert.assertEquals(advancedMath.multiplyDifferenceBy5(80.0, 20.0),300.0, 0);
+
+        // Then
+
+    }
+
+    // Test 2 BDD
+    @Test
+    public void testMultiplySumBy5BDD() {
+        // Given
+        given(basicMath.add(75.0, 25.0)).willReturn(100.0);
+        given(basicMath.multiply(100.0, 5)).willReturn(500.0);
+
+        // When
+        Assert.assertEquals(advancedMath.multiplySumBy5(75.0, 25.0),500.0, 0);
+
+        // Then
+
+    }
+
+    // Test 3 BDD
+    @Test
+    public void testSquareOfSumBDD() {
+        // Given
+        given(basicMath.add(20.0, 20.0)).willReturn(40.0);
+
+        // When
+//        advancedMath.squareOfSum(20.0, 20.0);
+        Assert.assertEquals(advancedMath.squareOfSum(20.0, 20.0),1600.0, 0);
+
+        // Then
+        verify(basicMath, atLeast(2)).add(20.0,20.0);
+        verify(basicMath, times(2)).add(20.0,20.0);
+
+    }
+
+    // Test 4 BDD
+    @Test
+    public void testGetPercentageBDD() {
+        // Given
+        given(basicMath.divide(50.0, 100.0)).willReturn(.5);
+        doThrow(new ArithmeticException("Division by zero")).when(basicMath).divide(50.0, 0.0);
+
+        // When
+        Assert.assertEquals(advancedMath.getPercentage(50.0, 100.0),50.0, 0);
+
+        reset(basicMath);
+        Assert.assertEquals(advancedMath.getPercentage(50.0, 100.0),00.0, 0);
+
+        // Then
+
+    }
 }
